@@ -1,0 +1,21 @@
+language: python
+
+python:
+  - "3.5"
+
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+#  - python setup.py -q install
+
+addons:
+  sauce_connect: true
+
+# command to run tests
+script:
+  - coverage run manage.py test
+  - coverage xml
+
+after_success:
+  - coveralls
+  - python-codacy-coverage -r coverage.xml
